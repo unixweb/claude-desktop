@@ -81,6 +81,7 @@
           <td><%= u.click_count %></td>
           <td>
             <% if (u.is_admin) { %><span class="badge-admin">Admin</span><% } %>
+            <% if (u.totp_enabled_at) { %><span class="badge-on">2FA</span><% } %>
             <% if (u.suspended_at) { %><span class="badge-off">gesperrt</span><% } %>
             <% if (!u.verified_at) { %><span class="badge-off">unverifiziert</span><% } %>
             <% if (u.verified_at && !u.is_admin && !u.suspended_at) { %><span class="muted">aktiv</span><% } %>
@@ -95,6 +96,13 @@
                 <input type="hidden" name="value" value="<%= u.suspended_at ? '0' : '1' %>" />
                 <button type="submit" class="button-secondary"><%= u.suspended_at ? 'Entsperren' : 'Sperren' %></button>
               </form>
+              <% if (u.totp_enabled_at) { %>
+                <form method="POST" action="/admin/users/<%= u.id %>/reset-2fa"
+                      onsubmit="return confirm('2FA für <%= u.email %> zurücksetzen?');"
+                      class="inline">
+                  <button type="submit" class="button-secondary">2FA Reset</button>
+                </form>
+              <% } %>
               <form method="POST" action="/admin/users/<%= u.id %>/delete"
                     onsubmit="return confirm('User <%= u.email %> mit allen Links und Tokens wirklich löschen?');"
                     class="inline">

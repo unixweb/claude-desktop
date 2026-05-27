@@ -399,6 +399,47 @@ body.layout-auth .footer-mini-sep { color: rgba(255, 255, 255, 0.4); }
 }
 .checkbox-row span { line-height: 1.4; }
 
+.qr-wrap {
+  text-align: center;
+  padding: 16px;
+  background: #f7fafc;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+.qr-wrap img { border-radius: 8px; }
+.secret-box {
+  text-align: center;
+  background: #edf2f7;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+}
+.backup-codes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+.backup-code {
+  display: block;
+  background: #1a202c;
+  color: #68d391;
+  padding: 10px 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+.backup-toggle {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #4a5568;
+}
+.backup-toggle summary { cursor: pointer; padding: 8px 0; }
+.backup-toggle[open] summary { margin-bottom: 8px; }
+
 .hp-field {
   position: absolute;
   left: -9999px;

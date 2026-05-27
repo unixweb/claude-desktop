@@ -1,0 +1,39 @@
+<%- include('partials/header', { title: 'Sicherheit', layout: 'app' }) %>
+<div class="page-header"><h1>Sicherheit</h1></div>
+
+<div class="card-wide">
+  <h2>Zwei-Faktor-Authentifizierung (2FA)</h2>
+  <% if (enabled) { %>
+    <p>
+      Status: <span class="badge-on">aktiviert</span>
+      &nbsp;·&nbsp; <%= codesLeft %> Backup-Code<%= codesLeft === 1 ? '' : 's' %> übrig
+    </p>
+    <p class="muted">
+      Beim nächsten Login wirst du nach deinem Authenticator-Code gefragt.
+      Verwahre deine Backup-Codes sicher (Passwort-Manager) für den Fall, dass du dein Handy verlierst.
+    </p>
+    <div class="setting-row" style="margin-top: 18px;">
+      <form method="POST" action="/account/2fa/regenerate-codes" onsubmit="return confirm('Neue Codes generieren? Die alten werden ungültig.');" class="inline">
+        <button type="submit" class="button-secondary">Neue Backup-Codes erstellen</button>
+      </form>
+      <form method="POST" action="/account/2fa/disable" onsubmit="return confirm('2FA wirklich deaktivieren?');" class="inline">
+        <button type="submit" class="button-danger">2FA deaktivieren</button>
+      </form>
+    </div>
+  <% } else { %>
+    <p>Status: <span class="badge-off">nicht aktiv</span></p>
+    <p class="muted">
+      Mit 2FA brauchst du zum Login zusätzlich zu deinem Passwort einen Code aus einer Authenticator-App
+      (z.&nbsp;B. Google Authenticator, Microsoft Authenticator, Bitwarden, 1Password, Authy).
+    </p>
+    <% if (user && user.is_admin) { %>
+      <div class="flash flash-error" style="margin-top: 16px;">
+        Als Admin <strong>musst</strong> du 2FA aktivieren, um den Admin-Bereich nutzen zu können.
+      </div>
+    <% } %>
+    <form method="POST" action="/account/2fa/setup" style="margin-top: 16px;">
+      <button type="submit">2FA jetzt aktivieren</button>
+    </form>
+  <% } %>
+</div>
+<%- include('partials/footer') %>

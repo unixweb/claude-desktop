@@ -1,0 +1,25 @@
+<%- include('partials/header', { title: '2FA-Code' }) %>
+<div class="card">
+  <h1>🔐 Zwei-Faktor-Authentifizierung</h1>
+  <p>Gib den 6-stelligen Code aus deiner Authenticator-App ein.</p>
+  <form method="POST" action="/login/2fa" autocomplete="off">
+    <label>
+      Code
+      <input type="text" name="code" required autofocus inputmode="numeric" pattern="[0-9 ]*" maxlength="10" placeholder="123 456" />
+    </label>
+    <button type="submit">Bestätigen</button>
+  </form>
+  <details class="backup-toggle">
+    <summary>Phone verloren? Backup-Code nutzen</summary>
+    <form method="POST" action="/login/2fa" autocomplete="off">
+      <input type="hidden" name="useBackup" value="1" />
+      <label>
+        Backup-Code
+        <input type="text" name="code" required placeholder="XXXX-XXXX" />
+      </label>
+      <button type="submit">Mit Backup-Code anmelden</button>
+    </form>
+  </details>
+  <p class="links"><a href="/login">Abbrechen</a></p>
+</div>
+<%- include('partials/footer') %>

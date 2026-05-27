@@ -1,0 +1,21 @@
+<%- include('partials/header', { title: 'Backup-Codes', layout: 'app' }) %>
+<div class="page-header"><h1>Deine Backup-Codes</h1></div>
+
+<div class="card-wide token-reveal">
+  <p>
+    <strong>Wichtig:</strong> Diese Codes werden <strong>nur ein Mal</strong> angezeigt.
+    Jeder Code kann <strong>genau einmal</strong> zum Login verwendet werden,
+    falls du keinen Zugriff auf deine Authenticator-App hast.
+    Bitte in einem Passwort-Manager speichern oder ausdrucken.
+  </p>
+  <div class="backup-codes">
+    <% codes.forEach(function(c) { %>
+      <code class="backup-code"><%= c %></code>
+    <% }); %>
+  </div>
+</div>
+
+<p class="links">
+  <a href="/account/2fa" class="button">Weiter zu Sicherheit</a>
+</p>
+<%- include('partials/footer') %>

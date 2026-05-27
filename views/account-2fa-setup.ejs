@@ -1,0 +1,26 @@
+<%- include('partials/header', { title: '2FA einrichten', layout: 'app' }) %>
+<div class="page-header"><h1>2FA einrichten</h1></div>
+
+<div class="card-wide">
+  <h2>Schritt 1: QR-Code scannen</h2>
+  <p>Öffne deine Authenticator-App und scanne den Code:</p>
+  <div class="qr-wrap">
+    <img src="<%= qrDataUrl %>" alt="QR-Code" />
+  </div>
+  <p class="muted">Kein Scanner zur Hand? Trage diesen Schlüssel manuell ein:</p>
+  <p class="secret-box"><code><%= secret %></code></p>
+</div>
+
+<div class="card-wide">
+  <h2>Schritt 2: Code aus App eingeben</h2>
+  <p>Tippe den aktuellen 6-stelligen Code aus deiner App ein, um die Einrichtung abzuschließen.</p>
+  <form method="POST" action="/account/2fa/enable" autocomplete="off">
+    <label>
+      Code aus der App
+      <input type="text" name="code" required autofocus inputmode="numeric" pattern="[0-9 ]*" maxlength="10" placeholder="123 456" />
+    </label>
+    <button type="submit">2FA aktivieren</button>
+  </form>
+  <p class="links"><a href="/account/2fa">Abbrechen</a></p>
+</div>
+<%- include('partials/footer') %>
