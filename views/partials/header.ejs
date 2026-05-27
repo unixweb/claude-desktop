@@ -21,6 +21,9 @@
         <div class="nav-links">
           <a href="/links">Meine Links</a>
           <a href="/tokens">API-Tokens</a>
+          <% if (user && user.is_admin) { %>
+            <a href="/admin" class="nav-admin">Admin</a>
+          <% } %>
           <% if (user) { %>
             <span class="nav-email"><%= user.email %></span>
             <form method="POST" action="/logout" class="inline">

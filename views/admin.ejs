@@ -1,0 +1,112 @@
+<%- include('partials/header', { title: 'Administration', layout: 'app' }) %>
+
+<div class="page-header">
+  <h1>Administration</h1>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-label">User gesamt</div>
+    <div class="stat-value"><%= totals.users %></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Admins</div>
+    <div class="stat-value"><%= totals.admins %></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Gesperrt</div>
+    <div class="stat-value"><%= totals.suspended %></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Links</div>
+    <div class="stat-value"><%= totals.links %></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Klicks gesamt</div>
+    <div class="stat-value"><%= totals.clicks %></div>
+  </div>
+</div>
+
+<div class="card-wide">
+  <h2>Einstellungen</h2>
+  <div class="setting-row">
+    <div>
+      <strong>Registrierungen</strong>
+      <p class="muted">
+        Aktuell:
+        <% if (registrationEnabled) { %>
+          <span class="badge-on">aktiviert</span>
+        <% } else { %>
+          <span class="badge-off">deaktiviert</span>
+        <% } %>
+        – wenn deaktiviert, sehen Besucher auf <code>/register</code> einen Hinweis.
+      </p>
+    </div>
+    <form method="POST" action="/admin/registration" class="inline">
+      <% if (registrationEnabled) { %>
+        <input type="hidden" name="enable" value="0" />
+        <button type="submit" class="button-danger">Deaktivieren</button>
+      <% } else { %>
+        <input type="hidden" name="enable" value="1" />
+        <button type="submit">Aktivieren</button>
+      <% } %>
+    </form>
+  </div>
+</div>
+
+<div class="card-wide">
+  <h2>Benutzer</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>E-Mail</th>
+        <th>Registriert</th>
+        <th>Letzter Login</th>
+        <th>Links</th>
+        <th>Klicks</th>
+        <th>Status</th>
+        <th class="actions">Aktionen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(function(u) { %>
+        <tr class="<%= u.suspended_at ? 'row-suspended' : '' %>">
+          <td>
+            <%= u.email %>
+            <% if (u.id === currentUserId) { %><span class="badge">du</span><% } %>
+          </td>
+          <td><%= new Date(u.created_at).toLocaleDateString('de-DE') %></td>
+          <td><%= u.last_login_at ? new Date(u.last_login_at).toLocaleString('de-DE') : '–' %></td>
+          <td><%= u.link_count %></td>
+          <td><%= u.click_count %></td>
+          <td>
+            <% if (u.is_admin) { %><span class="badge-admin">Admin</span><% } %>
+            <% if (u.suspended_at) { %><span class="badge-off">gesperrt</span><% } %>
+            <% if (!u.is_admin && !u.suspended_at) { %><span class="muted">aktiv</span><% } %>
+          </td>
+          <td class="actions">
+            <% if (u.id !== currentUserId) { %>
+              <form method="POST" action="/admin/users/<%= u.id %>/toggle-admin" class="inline">
+                <input type="hidden" name="value" value="<%= u.is_admin ? '0' : '1' %>" />
+                <button type="submit" class="button-secondary"><%= u.is_admin ? 'Admin entziehen' : 'Zum Admin' %></button>
+              </form>
+              <form method="POST" action="/admin/users/<%= u.id %>/toggle-suspended" class="inline">
+                <input type="hidden" name="value" value="<%= u.suspended_at ? '0' : '1' %>" />
+                <button type="submit" class="button-secondary"><%= u.suspended_at ? 'Entsperren' : 'Sperren' %></button>
+              </form>
+              <form method="POST" action="/admin/users/<%= u.id %>/delete"
+                    onsubmit="return confirm('User <%= u.email %> mit allen Links und Tokens wirklich löschen?');"
+                    class="inline">
+                <button type="submit" class="button-danger">Löschen</button>
+              </form>
+            <% } else { %>
+              <span class="muted">eigener Account</span>
+            <% } %>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/footer') %>

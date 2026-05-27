@@ -660,6 +660,56 @@ form.inline button { padding: 6px 12px; font-size: 13px; }
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+/* Admin */
+.nav-admin {
+  background: #fed7d7;
+  color: #742a2a !important;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600 !important;
+}
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.badge-on {
+  display: inline-block;
+  background: #c6f6d5;
+  color: #22543d;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-off {
+  display: inline-block;
+  background: #fed7d7;
+  color: #742a2a;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-admin {
+  display: inline-block;
+  background: #fefcbf;
+  color: #744210;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.row-suspended td { opacity: 0.5; }
+.row-suspended td:last-child { opacity: 1; }
+.actions form.inline + form.inline { margin-left: 4px; }
+.actions .button-secondary, .actions .button-danger {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
 /* Token reveal */
 .token-reveal { background: #fffbea; border: 1px solid #faf089; }
 .token-value {
