@@ -6,7 +6,13 @@
   <title><%= typeof title !== 'undefined' ? title : 'Login App' %></title>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="<%= typeof layout !== 'undefined' && layout === 'app' ? 'layout-app' : 'layout-auth' %>">
+<%
+  const layoutClass =
+    typeof layout !== 'undefined' && layout === 'app' ? 'layout-app'
+    : typeof layout !== 'undefined' && layout === 'landing' ? 'layout-landing'
+    : 'layout-auth';
+%>
+<body class="<%= layoutClass %>">
   <% if (typeof layout !== 'undefined' && layout === 'app') { %>
     <nav class="navbar">
       <div class="navbar-inner">
@@ -24,6 +30,21 @@
       </div>
     </nav>
     <main class="container-wide">
+  <% } else if (typeof layout !== 'undefined' && layout === 'landing') { %>
+    <nav class="navbar navbar-transparent">
+      <div class="navbar-inner">
+        <a class="brand brand-light" href="/">mygopage</a>
+        <div class="nav-links">
+          <% if (user) { %>
+            <a href="/links" class="nav-btn">Meine Links</a>
+          <% } else { %>
+            <a href="/login" class="nav-link-light">Anmelden</a>
+            <a href="/register" class="nav-btn">Kostenlos starten</a>
+          <% } %>
+        </div>
+      </div>
+    </nav>
+    <main>
   <% } else { %>
     <main class="container">
   <% } %>

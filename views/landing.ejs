@@ -1,0 +1,105 @@
+<%- include('partials/header', { title: 'mygopage – Kurz-Links mit Statistiken', layout: 'landing' }) %>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-title">Lange URLs in kurze Links verwandeln.</h1>
+    <p class="hero-subtitle">
+      Erstelle in Sekunden eigene Kurz-URLs unter <strong>mygopage.de</strong> –
+      mit Klick-Statistiken, QR-Codes, Passwort-Schutz und eigener API.
+    </p>
+    <div class="hero-cta">
+      <% if (user) { %>
+        <a href="/links" class="btn-primary-lg">Zu meinen Links</a>
+      <% } else { %>
+        <a href="/register" class="btn-primary-lg">Kostenlos starten</a>
+        <a href="/login" class="btn-ghost-lg">Anmelden</a>
+      <% } %>
+    </div>
+    <p class="hero-example">
+      Beispiel: <code>https://lange-domain.example/seite?...</code> →
+      <code class="hero-short">mygopage.de/s/meinlink</code>
+    </p>
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-inner">
+    <h2 class="section-title">Alles drin, was du brauchst</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">🔗</div>
+        <h3>Eigene Slugs</h3>
+        <p>Wähle deinen eigenen Kurz-Slug oder lass einen zufälligen generieren – beides geht in einem Klick.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h3>Statistiken</h3>
+        <p>Klicks pro Tag, Top-Länder und Referrer-Quellen – alles direkt im Dashboard ohne externe Tools.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📱</div>
+        <h3>QR-Codes</h3>
+        <p>Für jeden Link automatisch ein hochauflösender QR-Code zum Download – ideal für Print &amp; Visitenkarten.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>Passwort-Schutz</h3>
+        <p>Schütze sensible Links mit einem Passwort und setze optional ein Ablaufdatum.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Schnell &amp; serverless</h3>
+        <p>Läuft auf Vercels Edge-Infrastruktur mit Neon Postgres – minimale Latenz weltweit.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🛠️</div>
+        <h3>REST-API</h3>
+        <p>Erstelle und verwalte Links per API mit Bearer-Token – perfekt für Automatisierungen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="how-inner">
+    <h2 class="section-title">In drei Schritten zum eigenen Kurz-Link</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Konto erstellen</h3>
+        <p>Mit E-Mail und Passwort kostenlos registrieren. Keine Kreditkarte nötig.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Link einfügen</h3>
+        <p>Lange URL einfügen, optional eigenen Slug wählen, Passwort oder Ablauf setzen.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Teilen &amp; tracken</h3>
+        <p>Kurz-Link teilen und live im Dashboard sehen, wer von wo geklickt hat.</p>
+      </div>
+    </div>
+    <div class="how-cta">
+      <% if (user) { %>
+        <a href="/links/new" class="btn-primary-lg">Ersten Link erstellen</a>
+      <% } else { %>
+        <a href="/register" class="btn-primary-lg">Jetzt kostenlos starten</a>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© <%= new Date().getFullYear() %> mygopage.de</span>
+    <div class="footer-links">
+      <a href="/login">Anmelden</a>
+      <a href="/register">Registrieren</a>
+    </div>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>
