@@ -1,0 +1,24 @@
+<%- include('partials/header', { title: 'E-Mail bestätigen' }) %>
+<div class="card">
+  <h1>📬 Bitte E-Mail bestätigen</h1>
+  <% if (fromLogin) { %>
+    <p>Dein Konto ist noch nicht verifiziert. Wir haben dir bei der Registrierung einen Bestätigungs-Link geschickt.</p>
+  <% } else { %>
+    <p>Wir haben dir gerade eine E-Mail an <% if (email) { %><strong><%= email %></strong><% } else { %>deine Adresse<% } %> geschickt.</p>
+  <% } %>
+  <p>Klicke in der Mail auf den Bestätigungs-Link, dann ist dein Konto sofort aktiv.</p>
+  <p class="muted">Keine Mail erhalten? Spam-Ordner prüfen oder neue Mail anfordern:</p>
+
+  <form method="POST" action="/resend-verification">
+    <label>
+      E-Mail
+      <input type="email" name="email" value="<%= email %>" required />
+    </label>
+    <button type="submit">Bestätigungs-Mail erneut senden</button>
+  </form>
+
+  <p class="links">
+    <a href="/login">Zur Anmeldung</a>
+  </p>
+</div>
+<%- include('partials/footer') %>

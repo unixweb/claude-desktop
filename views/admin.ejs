@@ -82,7 +82,8 @@
           <td>
             <% if (u.is_admin) { %><span class="badge-admin">Admin</span><% } %>
             <% if (u.suspended_at) { %><span class="badge-off">gesperrt</span><% } %>
-            <% if (!u.is_admin && !u.suspended_at) { %><span class="muted">aktiv</span><% } %>
+            <% if (!u.verified_at) { %><span class="badge-off">unverifiziert</span><% } %>
+            <% if (u.verified_at && !u.is_admin && !u.suspended_at) { %><span class="muted">aktiv</span><% } %>
           </td>
           <td class="actions">
             <% if (u.id !== currentUserId) { %>

@@ -1,0 +1,15 @@
+<%- include('partials/header', { title: 'Bestätigung fehlgeschlagen' }) %>
+<div class="card">
+  <h1>⏰ Link ungültig oder abgelaufen</h1>
+  <p>Der Bestätigungs-Link ist nicht mehr gültig (max. 24 Stunden) oder wurde bereits verwendet.</p>
+  <p>Bitte fordere eine neue Bestätigungs-Mail an:</p>
+  <form method="POST" action="/resend-verification">
+    <label>
+      E-Mail
+      <input type="email" name="email" value="<%= email %>" required autofocus />
+    </label>
+    <button type="submit">Neue Bestätigungs-Mail anfordern</button>
+  </form>
+  <p class="links"><a href="/login">Zur Anmeldung</a></p>
+</div>
+<%- include('partials/footer') %>
