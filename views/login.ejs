@@ -1,0 +1,21 @@
+<%- include('partials/header', { title: 'Anmelden' }) %>
+<div class="card">
+  <h1>Anmelden</h1>
+  <form method="POST" action="/login">
+    <label>
+      E-Mail
+      <input type="email" name="email" required autofocus />
+    </label>
+    <label>
+      Passwort
+      <input type="password" name="password" required />
+    </label>
+    <button type="submit">Anmelden</button>
+  </form>
+  <p class="links">
+    <a href="/forgot-password">Passwort vergessen?</a>
+    <span>·</span>
+    <a href="/register">Konto erstellen</a>
+  </p>
+</div>
+<%- include('partials/footer') %>
