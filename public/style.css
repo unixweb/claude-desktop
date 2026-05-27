@@ -20,6 +20,13 @@ body.layout-auth main {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  width: 100%;
+  max-width: none;
+}
+body.layout-auth main > .card,
+body.layout-auth main > .flash {
+  width: 100%;
+  max-width: 420px;
 }
 
 /* App-Pages: helles Layout mit Navbar */
