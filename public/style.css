@@ -399,6 +399,14 @@ body.layout-auth .footer-mini-sep { color: rgba(255, 255, 255, 0.4); }
 }
 .checkbox-row span { line-height: 1.4; }
 
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* Mini footer (für auth/app Seiten) */
 .footer-mini {
   padding: 20px;

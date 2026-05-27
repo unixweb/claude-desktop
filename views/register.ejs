@@ -7,18 +7,25 @@
     </div>
     <p class="links"><a href="/login">Zur Anmeldung</a></p>
   <% } else { %>
-    <form method="POST" action="/register">
+    <form method="POST" action="/register" autocomplete="off">
+      <input type="hidden" name="_t" value="<%= formTs %>" />
+      <div class="hp-field" aria-hidden="true">
+        <label>
+          Website (bitte leer lassen)
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </label>
+      </div>
       <label>
         E-Mail
-        <input type="email" name="email" required autofocus />
+        <input type="email" name="email" required autofocus autocomplete="email" />
       </label>
       <label>
         Passwort (min. 8 Zeichen)
-        <input type="password" name="password" minlength="8" required />
+        <input type="password" name="password" minlength="8" required autocomplete="new-password" />
       </label>
       <label>
         Passwort wiederholen
-        <input type="password" name="passwordConfirm" minlength="8" required />
+        <input type="password" name="passwordConfirm" minlength="8" required autocomplete="new-password" />
       </label>
       <label class="checkbox-row">
         <input type="checkbox" name="acceptTerms" value="1" required />
