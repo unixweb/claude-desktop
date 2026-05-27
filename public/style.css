@@ -356,6 +356,49 @@ body.layout-auth .footer-mini-sep { color: rgba(255, 255, 255, 0.4); }
   border-top: 1px solid #e2e8f0;
 }
 
+.forbidden-list { padding-left: 22px; }
+.forbidden-list li { margin-bottom: 10px; }
+
+.abuse-link {
+  display: inline-block;
+  background: #fed7d7;
+  color: #742a2a !important;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none !important;
+  font-weight: 600;
+}
+.abuse-link:hover { background: #fc8181; color: white !important; }
+
+.abuse-email {
+  text-align: center;
+  font-size: 18px;
+  margin: 20px 0;
+}
+.abuse-email a {
+  display: inline-block;
+  background: #1a202c;
+  color: white !important;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none !important;
+  font-weight: 600;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-weight: 400;
+  font-size: 14px;
+}
+.checkbox-row input[type="checkbox"] {
+  width: auto;
+  margin: 3px 0 0;
+  flex-shrink: 0;
+}
+.checkbox-row span { line-height: 1.4; }
+
 /* Mini footer (für auth/app Seiten) */
 .footer-mini {
   padding: 20px;
