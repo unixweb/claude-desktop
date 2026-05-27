@@ -225,6 +225,67 @@ body.layout-landing main { display: block; padding: 0; }
   color: white;
 }
 
+/* Legal pages */
+.legal-page {
+  background: #f7fafc;
+  padding: 80px 20px 60px;
+  min-height: calc(100vh - 200px);
+}
+.legal-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  background: white;
+  padding: 48px 48px 56px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  line-height: 1.6;
+  color: #2d3748;
+}
+.legal-inner h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  letter-spacing: -0.01em;
+}
+.legal-inner h2 {
+  margin: 36px 0 12px;
+  font-size: 20px;
+  color: #1a202c;
+}
+.legal-inner h3 {
+  margin: 24px 0 8px;
+  font-size: 16px;
+  color: #2d3748;
+}
+.legal-inner p { margin: 0 0 14px; }
+.legal-inner ul { margin: 0 0 14px; padding-left: 22px; }
+.legal-inner li { margin-bottom: 4px; }
+.legal-inner code {
+  background: #edf2f7;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #2d3748;
+}
+.legal-inner a { color: #667eea; text-decoration: underline; }
+.legal-back {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Mini footer (für auth/app Seiten) */
+.footer-mini {
+  padding: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: #a0aec0;
+}
+.footer-mini-inner { display: flex; gap: 20px; justify-content: center; }
+.footer-mini a { color: #a0aec0; text-decoration: none; }
+.footer-mini a:hover { color: #667eea; }
+body.layout-auth .footer-mini a { color: rgba(255, 255, 255, 0.7); }
+body.layout-auth .footer-mini a:hover { color: white; }
+
 /* Footer */
 .footer {
   background: #1a202c;
