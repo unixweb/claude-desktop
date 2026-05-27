@@ -1,0 +1,92 @@
+<%- include('partials/header', { title: 'Link-Details', layout: 'app' }) %>
+<%
+  const shortUrl = base + '/s/' + link.slug;
+  const max = Math.max(1, ...stats.perDay.map(d => d.count));
+%>
+<div class="page-header">
+  <div>
+    <h1><%= link.slug %></h1>
+    <p class="muted">
+      <a href="<%= shortUrl %>" target="_blank"><%= shortUrl %></a>
+      → <a href="<%= link.target_url %>" target="_blank" rel="noopener" class="truncate-inline"><%= link.target_url %></a>
+    </p>
+  </div>
+  <div class="actions">
+    <a class="button-secondary" href="/links/<%= link.id %>/qr" target="_blank">QR-Code</a>
+    <form method="POST" action="/links/<%= link.id %>/delete" onsubmit="return confirm('Link wirklich löschen?');" class="inline">
+      <button type="submit" class="button-danger">Löschen</button>
+    </form>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-label">Gesamt-Klicks</div>
+    <div class="stat-value"><%= stats.total %></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Passwort-Schutz</div>
+    <div class="stat-value-sm"><%= link.password_hash ? 'aktiv' : 'aus' %></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Ablauf</div>
+    <div class="stat-value-sm"><%= link.expires_at ? new Date(link.expires_at).toLocaleString('de-DE') : 'nie' %></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Erstellt</div>
+    <div class="stat-value-sm"><%= new Date(link.created_at).toLocaleDateString('de-DE') %></div>
+  </div>
+</div>
+
+<div class="card-wide">
+  <h2>Klicks (letzte 30 Tage)</h2>
+  <% if (!stats.perDay.length) { %>
+    <p class="muted">Noch keine Klicks.</p>
+  <% } else { %>
+    <div class="sparkline">
+      <% stats.perDay.forEach(function(d) { %>
+        <div class="bar" style="height: <%= Math.round((d.count / max) * 100) %>%" title="<%= d.day %>: <%= d.count %>"></div>
+      <% }); %>
+    </div>
+    <div class="sparkline-labels">
+      <span><%= stats.perDay[0].day %></span>
+      <span><%= stats.perDay[stats.perDay.length - 1].day %></span>
+    </div>
+  <% } %>
+</div>
+
+<div class="two-col">
+  <div class="card-wide">
+    <h2>Top Länder</h2>
+    <% if (!stats.byCountry.length) { %>
+      <p class="muted">Noch keine Daten.</p>
+    <% } else { %>
+      <table class="data-table">
+        <thead><tr><th>Land</th><th>Klicks</th></tr></thead>
+        <tbody>
+          <% stats.byCountry.forEach(function(c) { %>
+            <tr><td><%= c.country %></td><td><%= c.count %></td></tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+  <div class="card-wide">
+    <h2>Top Referrer</h2>
+    <% if (!stats.byReferrer.length) { %>
+      <p class="muted">Noch keine Daten.</p>
+    <% } else { %>
+      <table class="data-table">
+        <thead><tr><th>Quelle</th><th>Klicks</th></tr></thead>
+        <tbody>
+          <% stats.byReferrer.forEach(function(r) { %>
+            <tr><td class="truncate"><%= r.referrer %></td><td><%= r.count %></td></tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+</div>
+
+<p class="links"><a href="/links">← Zurück zur Liste</a></p>
+<%- include('partials/footer') %>

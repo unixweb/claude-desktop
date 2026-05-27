@@ -1,9 +1,0 @@
-<%- include('partials/header', { title: 'Dashboard' }) %>
-<div class="card">
-  <h1>Willkommen!</h1>
-  <p>Du bist angemeldet als <strong><%= user.email %></strong>.</p>
-  <form method="POST" action="/logout">
-    <button type="submit">Abmelden</button>
-  </form>
-</div>
-<%- include('partials/footer') %>

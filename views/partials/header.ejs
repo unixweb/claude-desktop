@@ -6,11 +6,30 @@
   <title><%= typeof title !== 'undefined' ? title : 'Login App' %></title>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body>
-  <main class="container">
-    <% if (success && success.length) { %>
-      <div class="flash flash-success"><%= success %></div>
-    <% } %>
-    <% if (error && error.length) { %>
-      <div class="flash flash-error"><%= error %></div>
-    <% } %>
+<body class="<%= typeof layout !== 'undefined' && layout === 'app' ? 'layout-app' : 'layout-auth' %>">
+  <% if (typeof layout !== 'undefined' && layout === 'app') { %>
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="/links">Shortlink</a>
+        <div class="nav-links">
+          <a href="/links">Meine Links</a>
+          <a href="/tokens">API-Tokens</a>
+          <% if (user) { %>
+            <span class="nav-email"><%= user.email %></span>
+            <form method="POST" action="/logout" class="inline">
+              <button type="submit" class="btn-link">Logout</button>
+            </form>
+          <% } %>
+        </div>
+      </div>
+    </nav>
+    <main class="container-wide">
+  <% } else { %>
+    <main class="container">
+  <% } %>
+  <% if (success && success.length) { %>
+    <div class="flash flash-success"><%= success %></div>
+  <% } %>
+  <% if (error && error.length) { %>
+    <div class="flash flash-error"><%= error %></div>
+  <% } %>

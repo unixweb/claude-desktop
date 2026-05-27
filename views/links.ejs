@@ -1,0 +1,43 @@
+<%- include('partials/header', { title: 'Meine Links', layout: 'app' }) %>
+<div class="page-header">
+  <h1>Meine Links</h1>
+  <a class="button" href="/links/new">+ Neuer Link</a>
+</div>
+
+<% if (!links.length) { %>
+  <div class="empty">
+    <p>Noch keine Links. <a href="/links/new">Jetzt den ersten erstellen.</a></p>
+  </div>
+<% } else { %>
+  <div class="card-wide">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Kurz-URL</th>
+          <th>Ziel</th>
+          <th>Klicks</th>
+          <th>Letzter Klick</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% links.forEach(function(l) { %>
+          <tr>
+            <td>
+              <a href="<%= base %>/s/<%= l.slug %>" target="_blank"><%= l.slug %></a>
+              <% if (l.password_hash) { %><span class="badge">🔒</span><% } %>
+              <% if (l.expires_at) { %><span class="badge">⏰</span><% } %>
+            </td>
+            <td class="truncate"><a href="<%= l.target_url %>" target="_blank" rel="noopener"><%= l.target_url %></a></td>
+            <td><strong><%= l.click_count %></strong></td>
+            <td><%= l.last_clicked ? new Date(l.last_clicked).toLocaleString('de-DE') : '–' %></td>
+            <td class="actions">
+              <a href="/links/<%= l.id %>">Details</a>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+<%- include('partials/footer') %>

@@ -1,0 +1,26 @@
+<%- include('partials/header', { title: 'Neuer Link', layout: 'app' }) %>
+<div class="card">
+  <h1>Neuen Kurz-Link erstellen</h1>
+  <form method="POST" action="/links">
+    <label>
+      Ziel-URL *
+      <input type="url" name="targetUrl" required placeholder="https://example.com/seite" value="<%= values.targetUrl || '' %>" autofocus />
+    </label>
+    <label>
+      Slug (optional)
+      <input type="text" name="slug" pattern="[a-zA-Z0-9_\-]{3,32}" placeholder="z.B. mein-link (sonst zufällig)" value="<%= values.slug || '' %>" />
+      <small>3–32 Zeichen, a-z, 0-9, _ oder -</small>
+    </label>
+    <label>
+      Passwort-Schutz (optional)
+      <input type="password" name="password" placeholder="Leer = öffentlich" />
+    </label>
+    <label>
+      Ablaufdatum (optional)
+      <input type="datetime-local" name="expiresAt" value="<%= values.expiresAt || '' %>" />
+    </label>
+    <button type="submit">Link erstellen</button>
+  </form>
+  <p class="links"><a href="/links">Zurück</a></p>
+</div>
+<%- include('partials/footer') %>

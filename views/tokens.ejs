@@ -1,0 +1,66 @@
+<%- include('partials/header', { title: 'API-Tokens', layout: 'app' }) %>
+<div class="page-header">
+  <h1>API-Tokens</h1>
+</div>
+
+<% if (justCreated) { %>
+  <div class="card-wide token-reveal">
+    <p><strong>Neuer Token – nur jetzt sichtbar!</strong> Bitte kopieren und sicher speichern:</p>
+    <code class="token-value"><%= justCreated %></code>
+  </div>
+<% } %>
+
+<div class="card-wide">
+  <h2>Neuen Token erstellen</h2>
+  <form method="POST" action="/tokens" class="inline-form">
+    <input type="text" name="name" placeholder="Bezeichnung (z.B. 'Mein CLI')" maxlength="64" />
+    <button type="submit">Token erstellen</button>
+  </form>
+</div>
+
+<div class="card-wide">
+  <h2>Aktive Tokens</h2>
+  <% if (!tokens.length) { %>
+    <p class="muted">Noch keine Tokens.</p>
+  <% } else { %>
+    <table class="data-table">
+      <thead>
+        <tr><th>Name</th><th>Erstellt</th><th>Zuletzt benutzt</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% tokens.forEach(function(t) { %>
+          <tr>
+            <td><%= t.name || '–' %></td>
+            <td><%= new Date(t.created_at).toLocaleString('de-DE') %></td>
+            <td><%= t.last_used_at ? new Date(t.last_used_at).toLocaleString('de-DE') : 'nie' %></td>
+            <td class="actions">
+              <form method="POST" action="/tokens/<%= t.id %>/delete" onsubmit="return confirm('Token widerrufen?');" class="inline">
+                <button type="submit" class="button-danger">Widerrufen</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<div class="card-wide">
+  <h2>API verwenden</h2>
+  <p>Header: <code>Authorization: Bearer &lt;token&gt;</code></p>
+  <pre><code># Link erstellen
+curl -X POST https://&lt;deine-domain&gt;/api/links \
+  -H "Authorization: Bearer sk_..." \
+  -H "Content-Type: application/json" \
+  -d '{"target_url": "https://example.com", "slug": "demo"}'
+
+# Alle Links auflisten
+curl https://&lt;deine-domain&gt;/api/links -H "Authorization: Bearer sk_..."
+
+# Details + Stats
+curl https://&lt;deine-domain&gt;/api/links/42 -H "Authorization: Bearer sk_..."
+
+# Löschen
+curl -X DELETE https://&lt;deine-domain&gt;/api/links/42 -H "Authorization: Bearer sk_..."</code></pre>
+</div>
+<%- include('partials/footer') %>
