@@ -13,6 +13,14 @@ Passwort-Reset per E-Mail. Läuft als Serverless Function auf Vercel.
 - Brevo REST-API für E-Mail-Versand (kein SMTP nötig)
 - Schutz vor User-Enumeration (gleiche Antwort bei Forgot-Password)
 - `trust proxy` aktiviert, damit Secure-Cookies hinter dem Vercel-Edge funktionieren
+- Sessions werden bei jedem Request gegen die DB geprüft: Sperren, Löschen,
+  Admin-Entzug und Passwort-Reset (`session_version`) wirken sofort
+- Brute-Force-Schutz (Tabelle `auth_failures`, 15-Minuten-Fenster):
+  Login 10 Fehlversuche pro Konto / 50 pro IP, 2FA 5 pro Konto,
+  Passwort-Links 10 pro Link und IP
+- TOTP-Codes sind nur einmal verwendbar (Replay-Schutz über `totp_last_step`)
+- Keine User-Enumeration: `/register` antwortet bei bestehender Adresse wie bei
+  Neuanlage (Info-Mail an den Inhaber), Login mit konstanter bcrypt-Laufzeit
 
 ## Tech Stack
 
